@@ -1,0 +1,9 @@
+query Gallaries {
+  gallaries {
+    description
+    title
+    images {
+      url
+    }
+  }
+}
