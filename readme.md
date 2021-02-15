@@ -1,6 +1,6 @@
 ###
 
-Full stack photo gallry
+Full stack photo gallary
 
 ###
 
