@@ -12,7 +12,7 @@ Chakra-ui
 
 ## Development
 ```bash
-git clone https://github.com/kennethnwc/photo-gallary.git
+git clone 
 ```
 ### backend
 ```bash
