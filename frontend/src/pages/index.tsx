@@ -1,15 +1,19 @@
 import { Box, Heading, List, Text } from "@chakra-ui/react";
+import { GetStaticProps, NextPage } from "next";
 import React from "react";
 import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { Footer } from "../components/Footer";
 import { Hero } from "../components/Hero";
 import { Image } from "../components/Image";
-import { Main } from "../components/Main";
-import { useGallariesQuery } from "../generated/graphql";
+import { GallariesDocument, useGallariesQuery } from "../generated/graphql";
+import { addApolloState, initializeApollo } from "../lib/apolloCilent";
 import { getStrapiMedia } from "../lib/media";
 
-const Index = () => {
+type Props = {
+  title: string;
+};
+const Index: NextPage<Props> = ({}) => {
   const { data } = useGallariesQuery();
 
   return (
@@ -19,7 +23,6 @@ const Index = () => {
 
       <List spacing={3} my={0}>
         {data?.gallaries?.map((item) => {
-          console.log(item);
           if (!item) return null;
           return (
             <Box key={item.title}>
@@ -46,6 +49,20 @@ const Index = () => {
       </Footer>
     </Container>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({
+    query: GallariesDocument,
+  });
+
+  return addApolloState(apolloClient, {
+    props: {
+      title: "Hello",
+    },
+  });
 };
 
 export default Index;
